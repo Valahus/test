@@ -1,0 +1,17 @@
+---
+- name: Uninstall Telegraf
+  become: yes
+  shell: docker service rm tick_telegraf
+
+- name: Uninstall Influxdb
+  become: yes
+  shell: docker service rm tick_influxdb
+
+- name: Uninstall Chronograf
+  become: yes
+  shell: docker service rm tick_chronograf
+
+- name: Uninstall Kapacitor
+  become: yes
+  shell: docker service rm tick_kapacitor
+

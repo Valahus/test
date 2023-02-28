@@ -1,0 +1,7 @@
+version: "3"
+
+services: 
+  private:
+    image: 172.16.227.7:5000/booking/api:latest
+    ports:
+      - "8000:8000"

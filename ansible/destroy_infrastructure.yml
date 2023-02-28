@@ -1,0 +1,26 @@
+---
+
+- name: Remove TICK stack
+  hosts: all
+  tasks:
+   - name: Uninstall TICK stack
+     include_role:
+       name: docker_tickstack
+       tasks_from: destroy_tickstack
+
+- name: Remove Docker
+  hosts: all
+  tasks:
+   - name: Uninstall Docker
+     include_role:
+       name: swarm_registry
+       tasks_from: destroy_swarm
+
+# - name: Remove git
+#   hosts: swarm-manager
+#   tasks:
+#    - name: run the uninstall task for git
+#      include_role:
+#        name: gitlab_registry
+#        tasks_from: uninstall_gitlab
+

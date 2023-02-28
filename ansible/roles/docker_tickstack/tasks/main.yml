@@ -1,0 +1,74 @@
+---
+
+- name: Log into DockerHub
+  community.docker.docker_login:
+    username: taraboste1995
+    password: Dracu_183
+
+- name: Pull latest version Telegraf
+  become: yes
+  shell: docker pull telegraf:1.3
+
+- name: Pull latest version Influxdb
+  become: yes
+  shell: docker pull influxdb:1.2
+
+- name: Pull latest version Chronograf
+  become: yes
+  shell: docker pull chronograf:1.3
+
+- name: Pull latest version Kapacitor
+  become: yes
+  shell: docker pull kapacitor:1.2
+
+- name: Get image id for Telegraf
+  become: yes
+  shell: docker images --filter="reference=telegraf" --quiet
+  register: image_tag_telegraf
+
+- name: Get image id for Influxdb
+  become: yes
+  shell: docker images --filter="reference=influxdb" --quiet
+  register: image_tag_influxdb
+
+- name: Get image id for Chronograf
+  become: yes
+  shell: docker images --filter="reference=chronograf" --quiet
+  register: image_tag_chronograf
+
+- name: Get image id for Kapacitor
+  become: yes
+  shell: docker images --filter="reference=kapacitor" --quiet
+  register: image_tag_kapacitor
+
+- name: Tag Telegraf image to repository
+  become: yes
+  shell: docker image tag telegraf:1.3 localhost:5000/booking/telegraf:1.3
+
+- name: Tag Influxdb image to repository
+  become: yes
+  shell: docker image tag influxdb:1.2 localhost:5000/booking/influxdb:1.2
+
+- name: Tag Chronograf image to repository
+  become: yes
+  shell: docker image tag chronograf:1.3 localhost:5000/booking/chronograf:1.3
+
+- name: Tag Kapacitor image to repository
+  become: yes
+  shell: docker image tag kapacitor:1.2 localhost:5000/booking/kapacitor:1.2
+
+- name: Push Telegraf image
+  become: yes
+  shell: docker image push localhost:5000/booking/telegraf:1.3
+
+- name: Push Influxdb image
+  become: yes
+  shell: docker image push localhost:5000/booking/influxdb:1.2
+
+- name: Push Chronograf image
+  become: yes
+  shell: docker image push localhost:5000/booking/chronograf:1.3
+
+- name: Push Kapacitor image
+  become: yes
+  shell: docker image push localhost:5000/booking/kapacitor:1.2

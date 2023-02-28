@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+    backend:
+        build:
+            context: ./backend
+            network: host
+        restart: always
+        volumes:
+            - ./backend/app:/code/app
+            - ./backend/logs:/logs
+        ports:
+            - '8888:8888'
+        depends_on:
+            db:
+                condition: service_healthy
+        networks:
+            - postgres
+        healthcheck:
+            test: curl --fail http://localhost:8888 || exit 1
+            interval: 10s
+            retries: 5
+            start_period: 20s
+            timeout: 10s
+
+    db:
+        image: postgres:alpine3.15
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER:-postgres}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+            POSTGRES_DB: pgdb
+            PGDATA: /data/postgres
+        volumes:
+            - postgres:/data/postgres
+        ports:
+            - '5432:5432'
+        networks:
+            - postgres
+        restart: always
+        healthcheck:
+            test: ['CMD-SHELL', 'pg_isready -U postgres']
+            interval: 5s
+            timeout: 5s
+            retries: 5
+
+    pgadmin:
+        image: dpage/pgadmin4:6.4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+            PGADMIN_CONFIG_SERVER_MODE: 'False'
+        volumes:
+            - pgadmin:/var/lib/pgadmin
+
+        ports:
+            - '${PGADMIN_PORT:-5050}:80'
+        networks:
+            - postgres
+        restart: unless-stopped
+
+networks:
+    postgres:
+        driver: bridge
+
+volumes:
+    postgres:
+    pgadmin:

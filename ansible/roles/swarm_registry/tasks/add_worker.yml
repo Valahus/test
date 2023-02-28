@@ -1,0 +1,10 @@
+---
+
+# - name: Verify if Workers are not on the node before joining
+#   become: yes
+#   shell: docker swarm leave
+
+- name: Add the 2 workers to the Swarm
+  become: yes
+  shell: docker swarm join --token {{ hostvars[groups['swarm-manager'][0]]['worker_token']['stdout'] }} {{ hostvars[groups['swarm-manager'][0]]['ansible_default_ipv4']['address'] }}:2377 
+  tags: swarm

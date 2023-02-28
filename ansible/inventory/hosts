@@ -1,0 +1,12 @@
+[all:vars]
+ansible_connection=ssh
+ansible=port=22
+ansible_user=bosiic_m
+ansible_python_interpreter=/usr/bin/python3
+
+[swarm-manager]
+vm3 ansible_host=172.16.227.7 ansible_ssh_pass=Dracu183
+
+[swarm-worker]
+vm1 ansible_host=172.16.227.2 ansible_ssh_pass=Dracu183
+vm2 ansible_host=172.16.227.3 ansible_ssh_pass=Dracu183

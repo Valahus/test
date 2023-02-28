@@ -1,0 +1,26 @@
+---
+
+- name: Create Kapacitor file
+  file:
+    path: /etc/kapacitor
+    state: directory
+
+- name: Copy Docker-Compose to remote location
+  become: yes
+  copy:
+    src: docker_tickstack/files/docker-compose.yml
+    dest: /etc/docker-compose.yml
+    mode: '0755'
+
+- name: Copy kapacitor.conf to remote location
+  become: yes
+  copy:
+    src: docker_tickstack/files/kapacitor.conf
+    dest: /etc/kapacitor/kapacitor.conf
+    mode: '0755'
+
+- name: Launch Docker_Compose
+  become: yes
+  shell: docker stack deploy --compose-file /etc/docker-compose.yml tick
+
+  

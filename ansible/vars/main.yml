@@ -1,0 +1,5 @@
+
+---
+# vars file for roles/gitlab_registry
+
+gitlab_external_url: "http://172.16.227.7/gitlab/"

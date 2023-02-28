@@ -1,0 +1,13 @@
+---
+
+- name: Remove service
+  become: yes
+  shell: gitlab-ctl uninstall
+
+- name: Clean any residual data left
+  become: yes
+  shell: gitlab-ctl cleanse
+
+- name: Remove package
+  become: yes
+  shell: dpkg -P gitlab-ce

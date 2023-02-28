@@ -1,0 +1,57 @@
+---
+
+- name: Install requirements & Docker 
+  hosts: all
+
+  tasks:
+   - name: Install requirements & Docker
+     include_role:
+       name: swarm_registry
+       tasks_from: install_docker
+
+- name: Initialise Swarm
+  become: yes
+  hosts: swarm-manager
+  tasks:
+  - name: Initilise main node
+    include_role:
+      name: swarm_registry
+      tasks_from: swarm_init
+
+
+- name: Add Docker worker
+  become: yes
+  hosts: swarm-worker
+  tasks:
+  - name: Add Docker worker
+    include_role:
+      name: swarm_registry
+      tasks_from: add_worker
+
+- name: Initilise Docker registry
+  become: yes
+  hosts: swarm-manager
+  tasks:
+  - name: Initilise Docker registry
+    include_role:
+      name: docker_registry
+      tasks_from: init_registry
+
+
+- name: Push TICK stack images to registry
+  become: yes
+  hosts: swarm-manager
+  tasks:
+  - name: Push TICK stack images to registry
+    include_role:
+      name: docker_tickstack
+      tasks_from: main
+
+- name: Deploy Telegraf configuration
+  become: yes
+  hosts: swarm-manager
+  tasks:
+  - name: Deploy Telegraf configuration
+    include_role:
+      name: docker_tickstack
+      tasks_from: deploy_tickstack

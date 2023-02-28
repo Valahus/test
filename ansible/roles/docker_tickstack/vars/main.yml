@@ -1,0 +1,4 @@
+---
+# vars file for roles/docker_tickstack
+
+remote_user: bosiic_m

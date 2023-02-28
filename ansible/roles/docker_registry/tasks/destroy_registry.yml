@@ -1,0 +1,6 @@
+---
+
+- name: Stop and remove registry
+  become: yes
+  shell: docker container stop registry && docker container rm -v registry
+

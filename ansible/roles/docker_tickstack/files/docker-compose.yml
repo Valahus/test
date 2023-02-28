@@ -1,0 +1,65 @@
+version: "3.3"
+
+services:
+  telegraf:
+    image: localhost:5000/booking/telegraf:latest
+    networks:
+      - tick-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    configs:
+      - source: telegraf-config
+        target: /etc/telegraf/telegraf.conf
+    deploy:
+      restart_policy:
+        condition: on-failure
+      mode: global
+
+  influxdb:
+    image: localhost:5000/booking/influxdb:latest
+    networks:
+      - tick-net
+    deploy:
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == manager
+
+  chronograf:
+    image: localhost:5000/booking/chronograf:latest
+    networks:
+      - tick-net
+    ports:
+      - 8888:8888
+    deploy:
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == manager
+
+  kapacitor:
+    image: localhost:5000/booking/kapacitor:latest
+    networks:
+      - tick-net
+    configs:
+      - source: kapacitor-config
+        target: /etc/kapacitor/kapacitor.conf
+    deploy:
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.role == manager
+
+configs:
+  telegraf-config:
+    file: /etc/telegraf/telegraf.conf
+  kapacitor-config:
+    file: /etc/kapacitor/kapacitor.conf
+
+networks:
+  tick-net:
+    driver: overlay
+    
