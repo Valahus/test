@@ -22,7 +22,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(docs_url="/bookings/docs", openapi_url="/bookings/openapi")
 
 origins = ["*"]
 
@@ -35,19 +35,19 @@ app.add_middleware(
 )
 
 # app.include_router(UserRouter, tags=["Users"], prefix="/users")
-app.include_router(CustomerRouter, tags=["Customers"], prefix="/customers")
+app.include_router(CustomerRouter, tags=["Customers"], prefix="/bookings/customers")
 # app.include_router(HotelRouter, tags=["Hotel"], prefix="/hotel")
 # app.include_router(RoomRouter, tags=["Room"], prefix="/room")
 # app.include_router(RoomCategoryRouter, tags=["RoomCategory"], prefix="/roomcategory")
 # app.include_router(PriceRouter, tags=["Price"], prefix="/price")
 # app.include_router(AdditionalServiceRouter, tags=["AdditionalService"], prefix="/additionalservice")
-app.include_router(PaymentRouter, tags=["Payment"], prefix="/payment")
-app.include_router(BookingRouter, tags=["Booking"], prefix="/booking")
+app.include_router(PaymentRouter, tags=["Payment"], prefix="/bookings/payment")
+app.include_router(BookingRouter, tags=["Booking"], prefix="/bookings/booking")
 
 # app.include_router()
 
 
-@app.get("/", tags=["Root"])
+@app.get("/bookings", tags=["Root"])
 async def read_root():
     return {"message": "Welcome to this fantastic app!"}
 
