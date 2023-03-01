@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 # !/usr/bin/python3
 
@@ -63,6 +64,7 @@ async def read_root():
 
 client = TestClient(app)
 
+app.config['SQLALCHEMY_DATABASE_URL'] = 'postgresql://postgres:changeme@db:5432/pgdb'
 
 def test_read_main():
     response = client.get("/hotels")

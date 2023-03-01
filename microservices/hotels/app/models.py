@@ -87,73 +87,73 @@ class RoomCategory(Base):
 
     #Relationships
 
-class Price(Base):
-    __tablename__ = "price"
+# class Price(Base):
+#     __tablename__ = "price"
 
-    id = Column(Integer, primary_key=True, index=True)
-    room_category_id=Column(Integer)
-    additional_service_id=Column(Integer)
-    price=Column(Float)
-    created_at=Column(DateTime)
-    updated_at=Column(DateTime)
-    deleted_at=Column(DateTime)
+#     id = Column(Integer, primary_key=True, index=True)
+#     room_category_id=Column(Integer)
+#     additional_service_id=Column(Integer)
+#     price=Column(Float)
+#     created_at=Column(DateTime)
+#     updated_at=Column(DateTime)
+#     deleted_at=Column(DateTime)
 
-    #Relationships
+#     #Relationships
 
-class AdditionalService(Base):
-    __tablename__ = "additionalservice"
+# class AdditionalService(Base):
+#     __tablename__ = "additionalservice"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String)
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
-    deleted_at = Column(DateTime)
+#     id = Column(Integer, primary_key=True, index=True)
+#     name = Column(String)
+#     created_at = Column(DateTime)
+#     updated_at = Column(DateTime)
+#     deleted_at = Column(DateTime)
 
-    #Relationships
+#     #Relationships
 
-class Payment(Base): 
-    __tablename__ = "payment"
+# class Payment(Base): 
+#     __tablename__ = "payment"
 
-    id=Column(Integer, primary_key=True, index=True)
-    amount = Column(Float)
-    booking_id = Column(Integer)
-    customer_id = Column(Integer)
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
-    deleted_at = Column(DateTime)
+#     id=Column(Integer, primary_key=True, index=True)
+#     amount = Column(Float)
+#     booking_id = Column(Integer)
+#     customer_id = Column(Integer)
+#     created_at = Column(DateTime)
+#     updated_at = Column(DateTime)
+#     deleted_at = Column(DateTime)
 
-    #Relationships 
+#     #Relationships 
 
-class Booking(Base):
-    __tablename__= "booking"
+# class Booking(Base):
+#     __tablename__= "booking"
 
-    id= Column(Integer, primary_key=True, index=True)
-    number_guests=Column(Integer)
-    room_id = Column(Integer)
-    customer_id = Column(Integer)
-    arrival_date = Column(DateTime)
-    departure_date = Column(DateTime)
-    payment_id = Column(Integer)
-    booking_status = Column(Boolean) # to change
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
-    deleted_at = Column(DateTime)
-    # Relationships 
+#     id= Column(Integer, primary_key=True, index=True)
+#     number_guests=Column(Integer)
+#     room_id = Column(Integer)
+#     customer_id = Column(Integer)
+#     arrival_date = Column(DateTime)
+#     departure_date = Column(DateTime)
+#     payment_id = Column(Integer)
+#     booking_status = Column(Boolean) # to change
+#     created_at = Column(DateTime)
+#     updated_at = Column(DateTime)
+#     deleted_at = Column(DateTime)
+#     # Relationships 
 
-class Customer(Base):
-    __tablename__="customer"
+# class Customer(Base):
+#     __tablename__="customer"
 
-    id=Column(Integer, primary_key=True, index=True)
-    username=Column(String)
-    password=Column(String)
-    first_name=Column(String)
-    last_name=Column(String)
-    email = Column(String, unique=True, index=True)
-    phone = Column(String)
-    address=Column(String)
-    created_at = Column(DateTime)
-    updated_at = Column(DateTime)
-    deleted_at = Column(DateTime)
+#     id=Column(Integer, primary_key=True, index=True)
+#     username=Column(String)
+#     password=Column(String)
+#     first_name=Column(String)
+#     last_name=Column(String)
+#     email = Column(String, unique=True, index=True)
+#     phone = Column(String)
+#     address=Column(String)
+#     created_at = Column(DateTime)
+#     updated_at = Column(DateTime)
+#     deleted_at = Column(DateTime)
     #Relationships 
     
 
